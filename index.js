@@ -1,23 +1,21 @@
-import connect from 'aquameta-connection'
-import datum from 'aquameta-datum'
-import endpoint from 'aquameta-endpoint'
+import Connection from 'aquameta-connection'
+import { datum, endpoint } from 'aquameta-datum'
 
 export default function (config) {
   if (config.external) {
-    return externalMiddleware
+    return externalMiddleware(config)
   }
-  return localMiddleware
+  return localMiddleware(config)
 }
 
 function externalMiddleware (config) {
-
   // TODO: need to pass session cookie into this request in order to forward permissions
   const sessionCookie = req
 
   return function (req, res, next) {
     req.datum = {
       schema (name) {
-        return datum(Endpoint(config), name)
+        return datum(config).schema(name)
       }
     }
     next()
@@ -25,17 +23,14 @@ function externalMiddleware (config) {
 }
 
 function localMiddleware (config) {
-
   // TODO: need to find if there is a connection override in the config
   let connection
 
-  /* Not using Postgres role authentication */
   if (config.connection) {
+    // Not using Postgres role authentication
     connection = Connection(config)
-  }
-
-  /* Postgres role received in HTTP request */
-  else {
+  } else {
+    // Postgres role received in HTTP request
     connection = Connection(config, request)
   }
 
