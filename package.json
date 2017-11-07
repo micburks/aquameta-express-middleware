@@ -1,6 +1,6 @@
 {
   "name": "aquameta-express-middleware",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Use the current request to create an Aquameta connection",
   "main": "dist/middleware.js",
   "module": "dist/middleware.es.js",
