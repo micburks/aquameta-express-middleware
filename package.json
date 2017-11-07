@@ -51,7 +51,7 @@
     "rollup-plugin-eslint": "^4.0.0"
   },
   "dependencies": {
-    "aquameta-connection": "0.0.2",
-    "aquameta-datum": "0.0.5"
+    "aquameta-connection": "^0.0.2",
+    "aquameta-datum": "^0.0.6"
   }
 }
